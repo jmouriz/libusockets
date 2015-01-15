@@ -19,8 +19,15 @@ typedef struct _socket_t
 	int connection;
 } socket_t;
 
+typedef bool (*socket_client_handler_t) (char *);
+
 inline void socket_set_silent (socket_state_t);
 inline void socket_set_debug (socket_state_t);
+
+bool socket_server_new (socket_t *, char *, int, int);
+bool socket_server_serve (socket_t *, socket_t *, socket_client_handler_t);
+
+bool socket_default_client_handler (char *);
 
 bool socket_new (socket_t *, const char *, int);
 bool socket_bind (socket_t *);
@@ -31,7 +38,5 @@ bool socket_close (socket_t *);
 bool socket_connect (socket_t *);
 bool socket_send (socket_t *, char *);
 bool socket_receive (socket_t *, char *, int);
-
-bool socket_server_new (socket_t *, char *, int, int);
 
 #endif /* __SOCKETS_H__ */

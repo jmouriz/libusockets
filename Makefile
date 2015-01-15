@@ -18,7 +18,7 @@ clean:
 	-rm -f sockets.o example/server.o example/client.o
 
 sockets.o: sockets.c sockets.h
-	$(CC) -c sockets.c -o sockets.o $(FLAGS)
+	$(CC) -c sockets.c -o sockets.o $(FLAGS) -fPIC
 
 example/server.o: example/server.c example/boilerplate.h example/config.h
 	$(CC) -c example/server.c -o example/server.o $(FLAGS)

@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h> /* socket_default_client_handler */
 
 #include "sockets.h"
 #include "boilerplate.h"
@@ -67,6 +68,50 @@ socket_server_new (socket_t *socket, char *ip, int port, int limit)
 	}
 
 	return false;
+}
+
+bool
+socket_default_client_handler (char *buffer)
+{
+	printf ("Message received from client: \"%s\"\n", buffer);
+
+	return strncmp (buffer, "close", 5) == 0;
+}
+
+bool
+socket_server_serve (socket_t *server, socket_t *client, socket_client_handler_t handler)
+{
+	char *buffer;
+	bool handled;
+
+	if (!socket_accept (server, client))
+	{
+		return true;
+	}
+
+	buffer = (char *) malloc (sizeof (char) * 1024);
+
+	if (!socket_receive (client, buffer, 1024))
+	{
+		(void) socket_close (client);
+
+		free (buffer);
+
+		return true;
+	}
+
+	if (!socket_close (client))
+	{
+		free (buffer);
+
+		return true;
+	}
+
+	handled = handler ? handler (buffer) : socket_default_client_handler (buffer);
+
+	free (buffer);
+
+	return handled;
 }
 
 bool
