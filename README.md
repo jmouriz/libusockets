@@ -14,4 +14,4 @@ Una micro biblioteca de funciones para manejar sockets de Internet en Unix.
 
 Básicamente funciona como envoltura a la familia de funciones para manejar sockets de Internet en Unix. Cuenta con un sistema rudimentario de manejo de errores.
 
-Compila con C y C++ y es útil para encapsular en una clase de C++.
+Compila con C y C++ y es útil para encapsular en una clase de C++ o agregar las funciones de manejo de sockets de Windows (winsock) y hacer una biblioteca portable.
