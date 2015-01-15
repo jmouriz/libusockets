@@ -1,0 +1,4 @@
+Renombrar example por examples.
+Crear examples/client, examples/simple-server, examples/server.
+Usar un Makefile separado en examples.
+Crear un Makefile.i común en examples.
